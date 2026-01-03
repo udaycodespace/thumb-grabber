@@ -1,0 +1,143 @@
+/* THEME: The Editor's Desk
+   AESTHETIC: Tactile, Sharp, Typography-Driven (Neo-Brutalist Light)
+*/
+
+/* 1. Typography */
+/* 'Playfair Display' for a human, editorial voice. 'JetBrains Mono' for the technical input. */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+:root {
+    --bg-paper: #f4f1ea;       /* Warm, oatmeal paper color */
+    --ink-black: #1a1a1a;      /* Sharp, high-contrast text */
+    --highlight: #ff4d4d;      /* A specific, retro red accent */
+    --border-thick: 2px solid var(--ink-black);
+    --hard-shadow: 5px 5px 0px var(--ink-black); /* The signature "Human" hard shadow */
+}
+
+/* 2. Layout & Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace; /* Default to code font for UI elements */
+    background-color: var(--bg-paper);
+    color: var(--ink-black);
+    
+    /* Layout: Center everything */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    gap: 1.5rem;
+    
+    /* Adds a subtle grain to make it feel like paper, not a screen */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* 3. The Heading (Human & Classic) */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    font-style: italic; /* Adds personality */
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    
+    /* A little creative underline decoration */
+    text-decoration: underline;
+    text-decoration-color: var(--highlight);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+}
+
+/* 4. The Input (Functional & Brutalist) */
+input[type="url"] {
+    width: 100%;
+    max-width: 450px;
+    padding: 16px 20px;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #ffffff;
+    color: var(--ink-black);
+    
+    /* Hard edges, thick borders. No rounded corners. */
+    border: var(--border-thick);
+    border-radius: 0; 
+    outline: none;
+    
+    /* The Hard Shadow (Static) */
+    box-shadow: var(--hard-shadow);
+    transition: all 0.2s ease;
+}
+
+input[type="url"]::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* Interaction: When you click, the shadow moves (Tactile feel) */
+input[type="url"]:focus {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0px var(--ink-black);
+    border-color: var(--highlight);
+}
+
+/* 5. The Button (The Stamp) */
+button {
+    padding: 18px 36px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    
+    /* Design: High contrast block */
+    background-color: var(--ink-black);
+    color: #ffffff;
+    border: var(--border-thick);
+    border-radius: 0; /* Strict square */
+    
+    /* Hard Shadow, but in the accent color */
+    box-shadow: 6px 6px 0px var(--highlight);
+    transition: all 0.15s ease;
+    
+    /* Prevent shrinking on mobile */
+    flex-shrink: 0;
+}
+
+/* Hover: The shadow snaps closer */
+button:hover {
+    transform: translate(-2px, -2px); /* Moves UP slightly */
+    box-shadow: 8px 8px 0px var(--highlight);
+}
+
+/* Click: The button physically presses down */
+button:active {
+    transform: translate(4px, 4px); /* Moves DOWN */
+    box-shadow: 0px 0px 0px var(--highlight); /* Shadow disappears */
+}
+
+/* 6. Responsive Design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    /* On mobile, we stack them fully and remove massive shadows to save space */
+    input[type="url"], button {
+        width: 100%;
+        max-width: none;
+    }
+    
+    body {
+        padding: 20px;
+        align-items: stretch; /* Stretch elements to fill width */
+    }
+}
