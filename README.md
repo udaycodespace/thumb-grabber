@@ -1,27 +1,37 @@
-# YouTube Thumbnail Downloader
+# Thumb Grabber
 
-A simple web tool to download YouTube video thumbnails.
-Built for learning collaboration, not monetization.
+A simple web tool to download YouTube video thumbnails.  
 
-## MVP (only this)
+---
+
+## MVP
 - Paste a YouTube video URL
 - Show available thumbnail sizes
 - Download selected thumbnail
 
-No login. No backend. No extra features.
+---
 
 ## Stack
 - HTML
 - CSS
-- JavaScript (vanilla)
+- JavaScript
 
-## How we work
-- One task = one GitHub issue
-- One issue = one branch
-- No direct pushes to main
-- Small changes only
+---
 
-## Folder structure (suggested)
+## Tasks
+
+1. ~~Setup basic HTML structure~~ ✅
+2. Basic CSS layout
+3. Extract YouTube video ID from URL
+4. Generate thumbnail URLs
+5. Show thumbnail previews
+6. Download thumbnail
+7. Error handling
+8. Final cleanup
+
+---
+
+## Folder structure
 - index.html
 - style.css
 - script.js
