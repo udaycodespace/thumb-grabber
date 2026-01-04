@@ -3,18 +3,17 @@
 */
 
 /* 1. Typography */
-/* 'Playfair Display' for a human, editorial voice. 'JetBrains Mono' for the technical input. */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
 :root {
     --bg-paper: #f4f1ea;       /* Warm, oatmeal paper color */
     --ink-black: #1a1a1a;      /* Sharp, high-contrast text */
-    --highlight: #ff4d4d;      /* A specific, retro red accent */
+    --highlight: #ff4d4d;      /* Retro Red Accent */
     --border-thick: 2px solid var(--ink-black);
-    --hard-shadow: 5px 5px 0px var(--ink-black); /* The signature "Human" hard shadow */
+    --hard-shadow: 5px 5px 0px var(--ink-black);
 }
 
-/* 2. Layout & Reset */
+/* 2. Global Reset */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -22,41 +21,38 @@
 }
 
 body {
-    font-family: 'JetBrains Mono', monospace; /* Default to code font for UI elements */
+    font-family: 'JetBrains Mono', monospace;
     background-color: var(--bg-paper);
     color: var(--ink-black);
     
-    /* Layout: Center everything */
+    /* Layout */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
-    padding: 24px;
+    padding: 40px 20px; /* More padding for mobile safety */
     gap: 1.5rem;
     
-    /* Adds a subtle grain to make it feel like paper, not a screen */
+    /* Grain texture */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* 3. The Heading (Human & Classic) */
+/* 3. The Heading */
 h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
     font-weight: 700;
-    font-style: italic; /* Adds personality */
+    font-style: italic;
     text-align: center;
-    line-height: 1.1;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     
-    /* A little creative underline decoration */
     text-decoration: underline;
     text-decoration-color: var(--highlight);
     text-decoration-thickness: 3px;
     text-underline-offset: 6px;
 }
 
-/* 4. The Input (Functional & Brutalist) */
+/* 4. The Input */
 input[type="url"] {
     width: 100%;
     max-width: 450px;
@@ -64,32 +60,21 @@ input[type="url"] {
     font-size: 1rem;
     font-family: 'JetBrains Mono', monospace;
     background-color: #ffffff;
-    color: var(--ink-black);
-    
-    /* Hard edges, thick borders. No rounded corners. */
     border: var(--border-thick);
     border-radius: 0; 
     outline: none;
-    
-    /* The Hard Shadow (Static) */
     box-shadow: var(--hard-shadow);
     transition: all 0.2s ease;
 }
 
-input[type="url"]::placeholder {
-    color: #888;
-    font-style: italic;
-}
-
-/* Interaction: When you click, the shadow moves (Tactile feel) */
 input[type="url"]:focus {
     transform: translate(2px, 2px);
     box-shadow: 3px 3px 0px var(--ink-black);
     border-color: var(--highlight);
 }
 
-/* 5. The Button (The Stamp) */
-button {
+/* 5. The Main Button */
+button#get-btn {
     padding: 18px 36px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
@@ -97,47 +82,101 @@ button {
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    
-    /* Design: High contrast block */
     background-color: var(--ink-black);
     color: #ffffff;
     border: var(--border-thick);
-    border-radius: 0; /* Strict square */
-    
-    /* Hard Shadow, but in the accent color */
     box-shadow: 6px 6px 0px var(--highlight);
     transition: all 0.15s ease;
-    
-    /* Prevent shrinking on mobile */
-    flex-shrink: 0;
 }
 
-/* Hover: The shadow snaps closer */
-button:hover {
-    transform: translate(-2px, -2px); /* Moves UP slightly */
+button#get-btn:hover {
+    transform: translate(-2px, -2px);
     box-shadow: 8px 8px 0px var(--highlight);
 }
 
-/* Click: The button physically presses down */
-button:active {
-    transform: translate(4px, 4px); /* Moves DOWN */
-    box-shadow: 0px 0px 0px var(--highlight); /* Shadow disappears */
+button#get-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px var(--highlight);
 }
 
-/* 6. Responsive Design */
+/* =======================================================
+   7. DYNAMIC THUMBNAILS GRID
+   (Addresses Issue #5: Same box size & Proper Buttons)
+   ======================================================= */
+
+/* The Container - Responsive Grid */
+#thumbnails {
+    display: grid;
+    /* Creates columns that fit automatically (min 260px wide) */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px; /* Prevents it from getting too wide on huge screens */
+    margin-top: 2rem;
+}
+
+/* The Individual Card */
+.thumbnail-box {
+    background: #ffffff;
+    border: var(--border-thick);
+    padding: 12px;
+    box-shadow: var(--hard-shadow);
+    
+    /* Layout inside the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    
+    transition: transform 0.2s ease;
+}
+
+.thumbnail-box:hover {
+    transform: translateY(-4px); /* Subtle lift effect */
+    border-color: var(--highlight);
+}
+
+/* The Image - FORCED UNIFORM SIZE */
+.thumbnail-box img {
+    width: 100%;
+    /* This ensures every image (Low or HD) takes up the same space */
+    aspect-ratio: 16 / 9; 
+    object-fit: cover; /* Prevents stretching/distortion */
+    border-bottom: var(--border-thick);
+    background-color: #eee; /* Placeholder color */
+}
+
+/* The Download Button (Generated 'a' tag) */
+.thumbnail-box a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    text-decoration: none;
+    
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    
+    /* Inverted Style for visual hierarchy */
+    background: transparent;
+    color: var(--ink-black);
+    border: var(--border-thick);
+    transition: all 0.2s ease;
+}
+
+.thumbnail-box a:hover {
+    background: var(--ink-black);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Mobile Adjustments */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 2.2rem;
-    }
+    h1 { font-size: 2.2rem; }
+    input[type="url"], button#get-btn { width: 100%; }
     
-    /* On mobile, we stack them fully and remove massive shadows to save space */
-    input[type="url"], button {
-        width: 100%;
-        max-width: none;
-    }
-    
-    body {
-        padding: 20px;
-        align-items: stretch; /* Stretch elements to fill width */
-    }
+    /* Stack cards in a single column on mobile */
+    #thumbnails { grid-template-columns: 1fr; }
 }
