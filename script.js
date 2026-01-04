@@ -2,6 +2,27 @@ const input = document.querySelector("input");
 const getBtn = document.querySelector("#get-btn");
 const thumbsContainer = document.getElementById("thumbnails");
 
+async function downloadImage(url, filename) {
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if (!res.ok) throw new Error('Network response not ok');
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(blobUrl);
+  } catch (err) {
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
+
 const extractVideoId = () => {
   const val = input.value.trim();
   if (!val) return;
@@ -39,11 +60,11 @@ const generateThumbnail = () => {
     img.alt = key;
 
     img.onload = () => {
-      const link = document.createElement("a");
-      link.href = thumbs[key];
-      link.download = `${id}-${key}.jpg`;
-      link.textContent = `Download (${key})`;
-      box.appendChild(link);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = `Download (${key})`;
+    btn.addEventListener('click', () => downloadImage(thumbs[key], `${id}-${key}.jpg`));
+    box.appendChild(btn);
     };
 
     img.src = thumbs[key];

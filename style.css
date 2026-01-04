@@ -147,7 +147,7 @@ button#get-btn:active {
 }
 
 /* The Download Button (Generated 'a' tag) */
-.thumbnail-box a {
+.thumbnail-box button {
     display: block;
     width: 100%;
     text-align: center;
@@ -166,7 +166,7 @@ button#get-btn:active {
     transition: all 0.2s ease;
 }
 
-.thumbnail-box a:hover {
+.thumbnail-box button:hover {
     background: var(--ink-black);
     color: #ffffff;
     cursor: pointer;

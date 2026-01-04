@@ -24,8 +24,8 @@ A simple web tool to download YouTube video thumbnails.
 2. ~~Basic CSS layout~~ ✅
 3. ~~Extract video ID from URL~~ ✅
 4. ~~Generate thumbnail URLs~~ ✅
-5. Show thumbnail previews
-6. Download thumbnail
+5. ~~Show thumbnail previews~~ ✅
+6. ~~Download thumbnail~~ ✅
 7. Error handling
 8. Final cleanup
 
